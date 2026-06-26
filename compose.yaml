@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # --- Redis Cache ---
+  redis:
+    image: redis:7-alpine
+    container_name: shared_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    # Enforcing a password and memory limits as discussed in best practices
+    command: redis-server --requirepass YourRedisSecretPassword123 --maxmemory 512mb --maxmemory-policy allkeys-lru --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - infrastructure_network
+
+  # --- MySQL Database ---
+  mysql:
+    image: mysql:8.0
+    container_name: shared_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      # NEVER commit real production passwords to GitHub!
+      # These are fine for local dev, but use an .env file for production.
+      MYSQL_ROOT_PASSWORD: YourRootPassword123!
+      MYSQL_DATABASE: my_application_db
+      MYSQL_USER: my_app_user
+      MYSQL_PASSWORD: YourAppPassword123!
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - infrastructure_network
+
+# --- Persistent Volumes ---
+# These ensure your databases don't wipe when the containers restart
+volumes:
+  redis_data:
+  mysql_data:
+
+# --- Shared Network ---
+networks:
+  infrastructure_network:
+    name: infrastructure_network
+    driver: bridge
