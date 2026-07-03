@@ -1,0 +1,11 @@
+-- ============================================================
+-- Password Reset Tokens Table
+-- Stores short-lived, single-use tokens for password reset.
+-- The token itself is stored in Redis (15 min TTL); this table
+-- is only kept for audit purposes if needed in the future.
+-- For the current implementation tokens are managed via Redis only.
+-- ============================================================
+
+-- No schema change required — reset tokens are stored in Redis
+-- with the key pattern: reset:{token} => userId  (TTL: 15 min)
+-- This file is a placeholder documenting that design decision.
