@@ -10,8 +10,10 @@ CREATE TABLE IF NOT EXISTS products (
     category    VARCHAR(100)   NOT NULL,
     subcategory VARCHAR(100)   NULL,
     price       DECIMAL(10, 2) NOT NULL,
-    image_urls  JSON           NULL,
-    created_at  DATETIME      DEFAULT CURRENT_TIMESTAMP
+    image_urls   JSON           NULL,
+    is_displayed TINYINT(1)   NOT NULL DEFAULT 1,
+    is_deleted   TINYINT(1)   NOT NULL DEFAULT 0,
+    created_at   DATETIME      DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS parts (
