@@ -3,10 +3,11 @@
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS categories (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(255) NOT NULL UNIQUE,
-    slug        VARCHAR(255) NOT NULL UNIQUE,
-    created_at  DATETIME      DEFAULT CURRENT_TIMESTAMP
+    id                        INT AUTO_INCREMENT PRIMARY KEY,
+    name                      VARCHAR(255) NOT NULL UNIQUE,
+    slug                      VARCHAR(255) NOT NULL UNIQUE,
+    number_of_active_products INT NOT NULL DEFAULT 0,
+    created_at                DATETIME      DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS subcategories (
