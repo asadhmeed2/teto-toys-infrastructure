@@ -1,0 +1,7 @@
+# Weekly dependency + base-image update PRs and security alerts (OWASP A03).
+version: 2
+updates:
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
